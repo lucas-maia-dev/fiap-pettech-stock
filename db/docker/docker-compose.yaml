@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  docker-mongodb:
+    image: mongo:4.0.5
+    container_name: pettech-mongodb
+    volumes:
+      - /data-mongodb:/data/mongodb
+    ports:
+      - 27017:27017
+    networks:
+      - default
+    restart: always
+
+volumes:
+  data-mongodb:
+    driver: local
