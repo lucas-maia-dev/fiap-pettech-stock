@@ -22,7 +22,7 @@ jobs:
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker build \
             -t $DOCKER_USERNAME/pettech-stock:latest \
-            --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} \
+            --build-arg MONGO_URI=${{ secrets.DATABASE_URL }} \
             --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} \
             .
 
