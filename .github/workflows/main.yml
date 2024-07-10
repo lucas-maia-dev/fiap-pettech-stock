@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     env:
@@ -15,11 +15,15 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
+
+      - name: Login to Docker Hub
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
       - name: Build and Push Docker Image
         run: |
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker build -t $DOCKER_USERNAME/pettech-stock:latest --build-arg DATABASE_URL=${{ secrets.DATABASE_URL }} --build-arg JWT_SECRET=${{ secrets.JWT_SECRET }} .
+          docker build -t $DOCKER_USERNAME/pettech-stock:latest \
+            --build-arg DATABASE_URL="${{ secrets.DATABASE_URL }}" \
+            --build-arg JWT_SECRET="${{ secrets.JWT_SECRET }}" \
+            .
           docker push $DOCKER_USERNAME/pettech-stock:latest
- 
