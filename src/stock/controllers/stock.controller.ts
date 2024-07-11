@@ -15,7 +15,7 @@ import { StockService } from '../services/stock.service'
 import { z } from 'zod'
 import { ZodValidationPipe } from 'src/shared/pipe/zod-validation.pipe'
 import { AuthGuard } from 'src/shared/guards/auth.guard'
-import { LoggingIterceptor } from 'src/shared/interceptors/logging.interceptor'
+import { LoggingInterceptor } from 'src/shared/interceptors/logging.interceptor'
 
 const createStockSchema = z.object({
   name: z.string(),
@@ -31,7 +31,7 @@ type CreateStock = z.infer<typeof createStockSchema>
 type UpdateStock = z.infer<typeof updateStockSchema>
 
 @UseGuards(AuthGuard)
-@UseInterceptors(LoggingIterceptor)
+@UseInterceptors(LoggingInterceptor)
 @Controller('stock')
 export class StockController {
   constructor(private readonly stockService: StockService) {}
