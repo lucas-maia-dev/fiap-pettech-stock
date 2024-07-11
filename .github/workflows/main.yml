@@ -19,7 +19,7 @@ jobs:
 
       - name: Build image
         run: |-
-          docker login -u lusca33 -p $DOCKER_PASSWORD
+          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker build \
             -t $DOCKER_USERNAME/pettech-stock:latest \
             --build-arg MONGO_URI=${{ secrets.DATABASE_URL }} \
