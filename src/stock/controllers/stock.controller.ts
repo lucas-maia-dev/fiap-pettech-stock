@@ -16,6 +16,7 @@ import { z } from 'zod'
 import { ZodValidationPipe } from 'src/shared/pipe/zod-validation.pipe'
 import { AuthGuard } from 'src/shared/guards/auth.guard'
 import { LoggingInterceptor } from 'src/shared/interceptors/logging.interceptor'
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger'
 
 const createStockSchema = z.object({
   name: z.string(),
@@ -30,6 +31,8 @@ const updateStockSchema = z.object({
 type CreateStock = z.infer<typeof createStockSchema>
 type UpdateStock = z.infer<typeof updateStockSchema>
 
+@ApiBearerAuth()
+@ApiTags('stock')
 @UseGuards(AuthGuard)
 @UseInterceptors(LoggingInterceptor)
 @Controller('stock')
